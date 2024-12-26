@@ -9,9 +9,6 @@ import { Stock } from '../entity/stock';
 })
 export class StockService {
   private url: string = "http://localhost:8080/get-stock-stream";
-  // private url: string = "http://localhost:8080/hello";
-  loading: boolean = true;
-  students: Stock[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -22,11 +19,8 @@ export class StockService {
     }
 
     const oboeClient = oboe(options);
-    console.log("[+] Before Calling API")
     oboeClient
       .node('*', (element) => {
-        // console.log("Element: "+element);
-        // console.log("-----------------------------------------")
         onSuccess(new Stock(element.id, 
                             element.alias, 
                             element.name, 
@@ -40,14 +34,4 @@ export class StockService {
     })
   }
 
-  getStudents() {
-    console.log("[+] rxjs...");
-    return this.http.get(this.url, { observe:'body', responseType:'text'}).pipe(map(response => {
-      // Assuming response is a stream of JSON objects separated by newlines 
-      console.log(response);
-      return response;
-     // return response.split('\n').map(line => line ? JSON.parse(line) : null).filter(line => line);
-    }));
-    
-  }
 }
