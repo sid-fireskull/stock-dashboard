@@ -31,7 +31,7 @@ export class StockService {
                             element.alias, 
                             element.name, 
                             element.lastDayMarketPrice, 
-                            parseFloat(element.currentMarketPrice.toFixed(2)), 
+                            element.currentMarketPrice, 
                             element.low52Week, 
                             element.high52Week));
     }).fail((error) => {

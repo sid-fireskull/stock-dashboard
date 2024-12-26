@@ -11,7 +11,6 @@ import { Subject } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'reactive-dashboard';
   stockService: StockService;
-  stocks: Stock[] = [];
   stockMap = new Map<string, Stock>();
   loading: boolean = true;
 
@@ -20,14 +19,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTopShares();
+    this.getTopStocks();
   }
 
-  getTopShares() {
+  getTopStocks() {
     this.stockService.getTopStocks(data => {
-      console.log(data.name);
-      this.loading=false;
-      this.stocks.push(data);
       this.updateStockMap(data);
     });
   }
@@ -36,6 +32,4 @@ export class AppComponent implements OnInit {
   {
     this.stockMap.set(stock.alias, stock);
   }
-
-
 }
